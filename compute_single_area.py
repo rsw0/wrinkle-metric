@@ -23,7 +23,7 @@ def indiv_area(input_path):
     goal_area = 0
     for c in goal_contours:
         goal_area += cv2.contourArea(c)
-    output_img = cv2.imwrite('testtest.png', goal_rgb)
+    # output_img = cv2.imwrite('testtest.png', goal_rgb)
     return goal_area
 
 # print(indiv_area('blender_test_rgb.jpg'))
