@@ -22,7 +22,7 @@ goal_rgb_hsv = cv2.cvtColor(goal_rgb, cv2.COLOR_BGR2HSV)
 mask1 = cv2.inRange(goal_rgb_hsv, (0,50,20), (15,255,255))
 mask2 = cv2.inRange(goal_rgb_hsv, (160,50,20), (180,255,255))
 mask = cv2.bitwise_or(mask1, mask2)
-goal_rgb[mask>0]=(0,255,0)
+goal_rgb[mask>0]=(0,0,255)
 goal_rgb_hsv = cv2.cvtColor(goal_rgb, cv2.COLOR_BGR2HSV)
 
 # 3. Obtain only the hue parameter, and find the the area of the masked region
@@ -124,7 +124,7 @@ def alpha_blend(small_foreground, background):
     # Replace a part of the background
     result[y:y+h,x:x+w] = part_of_bg
     return result
-angle_list = np.arange(360)[1:]
+angle_list = np.arange(360)
 for angle in angle_list:
     rotated_cropped_goal_image = rotate_image(cropped_goal_circle_BGRA, angle)
     rotated_final_goal_image = alpha_blend(rotated_cropped_goal_image, goal_rgb_copy_for_rotate)

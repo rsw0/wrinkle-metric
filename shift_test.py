@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import random as rng
-def shift_test_image(goal_rgb_image_path, test_rgb_image_path)
+def shift_test_image(goal_rgb_image_path, test_rgb_image_path):
     goal_rgb = cv2.imread(goal_rgb_image_path)
     test_rgb = cv2.imread(test_rgb_image_path)
     blank_canvas = np.zeros_like(goal_rgb)
@@ -13,9 +13,9 @@ def shift_test_image(goal_rgb_image_path, test_rgb_image_path)
     test_mask1 = cv2.inRange(test_rgb_hsv, (0,50,20), (15,255,255))
     test_mask2 = cv2.inRange(test_rgb_hsv, (160,50,20), (180,255,255))
     test_mask = cv2.bitwise_or(test_mask1, test_mask2)
-    goal_rgb[goal_mask>0]=(0,255,0)
+    goal_rgb[goal_mask>0]=(0,0,255)
     goal_rgb_hsv = cv2.cvtColor(goal_rgb, cv2.COLOR_BGR2HSV)
-    test_rgb[test_mask>0]=(0,255,0)
+    test_rgb[test_mask>0]=(0,0,255)
     test_rgb_hsv = cv2.cvtColor(test_rgb, cv2.COLOR_BGR2HSV)
     goal_contours = cv2.findContours(goal_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     goal_contours = goal_contours[0] if len(goal_contours) == 2 else goal_contours[1]
@@ -49,3 +49,10 @@ def shift_test_image(goal_rgb_image_path, test_rgb_image_path)
     # shifted output is the shifted test rgb image, centered on the goal
     shifted_output[(goal_center_y-(test_bound_height//2)):(goal_center_y+(test_bound_height//2)), (goal_center_x-(test_bound_width//2)):(goal_center_x+(test_bound_width//2))] = test_bw_crop
     return shifted_output
+
+
+    
+""" goal_rgb_path = './data/small_test_dataset/goal_rgb.png'
+test_rgb_path = 'lolol.png'
+x = compute_giou(goal_rgb_path, test_rgb_path)
+print(x) """
