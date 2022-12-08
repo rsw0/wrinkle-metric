@@ -16,7 +16,7 @@ NOC = 60 # NUMBER OF CUT
 N = 1 # NUMBER OF RANDOM SAMPLES TO GENERATE
 X, Y = 0, 0 # PICK POSITION
 dx, dy = 1.5, 1.5 # DISTANCE TO PLACE
-ALPHA = 0.010 # threshold, needs fine tuning
+ALPHA = 2.0 * 0.012 # threshold, needs fine tuning
 # ----------------------------------
 
 # =========USEFUL INFO FOR DOWNSTREAM TASKS=======
@@ -218,13 +218,13 @@ def read_z_value(mesh):
     sum_of_z = 0
     highest_z = 0
     for i, v in enumerate(bm.verts):
-        v.co[2] += 0.05 # calibrate thickness
+        v.co[2] += (0.05 - 0.0028) # calibrate thickness, flat part will have 0 z-coordinate
         z_val = max((v.co[2] - ALPHA), 0)
         if(z_val > highest_z):
             highest_z = z_val
         sum_of_z += z_val
         #sum_of_z += max((v.co[2] - ALPHA), 0)
-        #print("frame: 50, vert: {}, location: {}".format(i, v.co))
+        #print("vert: {}, location: {}".format(i, v.co))
     print("The sum of z-value of all vertices is %.3f." %sum_of_z)
     print("The highest value of z is %.3f"%highest_z)
     return sum_of_z
