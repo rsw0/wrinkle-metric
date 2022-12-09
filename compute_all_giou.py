@@ -22,11 +22,15 @@ for goal in goal_list:
     giou_list.append(giou_temp)
 
 print(giou_list)
-max = giou_list[0]
+mymin = giou_list[0]
 index = 0
 for i in range(1,len(giou_list)):
-    if giou_list[i] > max:
-        max = giou_list[i]
+    if giou_list[i] < mymin:
+        mymin = giou_list[i]
         index = i
-print(f'Index of the maximum value is : {index}')
-print(max)
+print(f'Index of the minimum value is : {index}')
+print(mymin)
+
+
+
+# select those goal states with bounding boxes of similar dimension as the final state, only compute shifts on those, does it make sense, will you exclude the good ones
